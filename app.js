@@ -5,7 +5,8 @@ const stuffRoutes = require('./routes/stuff');
 const userRoutes = require('./routes/user');
 const path = require('path');
 const errors = require("./middleware/errorHandler");
-const {rateLimiter} = require("./middleware/rate_limit");
+const RateLimiterIp = require("./middleware/rate_limit_IP");
+const RateLimiterToken = require("./middleware/rate_limit_Token");
 
 
 const app = express();
@@ -29,10 +30,12 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.json())
+app.use(RateLimiterIp);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/stuff', stuffRoutes);
 app.use('/api/auth', userRoutes);
+app.use(RateLimiterToken);
 app.use(errors.errorHandler); // middleware for error responses
-app.use(rateLimiter);
+
 
 module.exports = app;

@@ -1,6 +1,7 @@
 const User = require("../model/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
 
 /**
  * Контроллер для работы с аутентифицированными пользователями или теми, кто хочет зарегистрироваться
@@ -8,6 +9,9 @@ const jwt = require("jsonwebtoken");
  * @param res: параметр ответа.
  * @param next: указание на выполнение следующего блока.
  */
+
+// получить переменные из файла .env
+dotenv.config();
 
 //подписывать
 exports.signup = (req, res, next) => {
@@ -40,8 +44,8 @@ exports.login = (req, res, next) => {
                         userId: user._id,
                         token: jwt.sign(
                             { userId: user._id },
-                            'RANDOM_TOKEN_SECRET',
-                            { expiresIn: '24h' }
+                            'process.env.TOKEN_SECRET',
+                            { expiresIn: '2h' }
                         )
                     });
                 })
