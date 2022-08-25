@@ -25,7 +25,7 @@ I've:
 - Mongoose: will help to connect with db (easy to use).
 - dotenv: get password vars from .env file.
 - bcryptjs: will encrypt our passwords.
-- express-unless: to conditionally skip a middleware when a condition is met.<br/>This is particularly helpful when used in conjunction with custom authentication middleware.
+
 
 
 
